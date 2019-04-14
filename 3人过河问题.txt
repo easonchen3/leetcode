@@ -1,0 +1,47 @@
+/**
+有n个人要过河，但是河边上只有一个船，船每次最多可以做三个人，每个人单独坐船时间为a[i],两个人或者三个人一起坐船时，过河时间为他们所有人中的最长过河时间：
+	为了安全起见，要求每次至少有两个人才可以过河
+	问最短时间需要多少时间，才能把所有人送到河对岸
+
+算法思想、：
+1.排序
+2.如果人数少于等于三人，直接输出最大的时间
+3.如果大于三人，时间=a[a.length-1]+a(2-a.length-2)*2;
+乘船策略：先拉最大的三个过去，再把次小的两个拉回来，在把剩余人数中最大的拉过去，以此往复。
+
+输入：
+n(n组)
+m(第i组的人数)
+a[0] a[1] a[2] ... a[m-1] 每个人的时间
+
+输出：
+time（最小过河时间）
+**/
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner input = new Scanner(System.in);
+        int m = input.nextInt();
+        while((m--)!=0){
+            int nums = input.nextInt();
+            int[] a= new int[nums];
+            for(int i = 0;i<nums;i++){
+                a[i]=input.nextInt();
+            }
+            System.out.println(fun(a));
+        }
+    }
+    public static int fun(int[] a){
+        Arrays.sort(a);
+        if(a.length<=3) return a[a.length-1];
+        else{
+            int sum = a[a.length-1];
+            for(int i = a.length-2;i>=2;i--){
+                sum += (a[i]*2);
+            }
+            return sum;
+        }
+    }
+}
