@@ -1,0 +1,32 @@
+class Solution {
+    public String toGoatLatin(String S) {
+        if(S == null || S.length() == 0){
+            return null;
+        }
+        StringBuilder result = new StringBuilder();
+        StringBuilder a = new StringBuilder("a");
+        String[] ss = S.split(" ");
+        for (String s : ss){
+            char[] chars = s.toCharArray();
+            boolean isYuan = false;
+            char first = chars[0];
+            StringBuilder newString = new StringBuilder();
+            if(first == 'a' || first == 'e' || first == 'i' || first == 'o' || first == 'u'||
+               first == 'A' || first == 'E' || first == 'I' || first == 'O' || first == 'U'){
+                isYuan = true;
+            }
+            int index = isYuan ? 0:1;
+            for(;index<chars.length;index++){
+                newString.append(chars[index]);
+            }
+            if(!isYuan){
+                newString.append(first);
+            }
+            newString.append("ma").append(a);
+            a.append("a");
+            result.append(newString).append(" ");
+        }
+        result.deleteCharAt(result.length()-1);
+        return result.toString();
+    }
+}
