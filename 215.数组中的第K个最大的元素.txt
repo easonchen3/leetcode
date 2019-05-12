@@ -1,0 +1,36 @@
+
+//使用快排思想
+
+public static int quickSort(int[] nums, int k,int low,int high) {
+        if(low<=high){
+            int position = postion(nums,low,high);
+            if(position == k-1){
+                return nums[position];
+            }
+            else if(position > k-1){
+                return quickSort(nums,k,low,position-1);
+            }else{
+                return quickSort(nums,k,position+1,high);
+            }
+        }else{
+            return -1;
+        }
+    }
+
+    public static int postion(int[] nums,int left,int right){
+        int low = left;
+        int high = right;
+        int temp = nums[low];
+        while(low<high){
+            while(nums[high]>=temp && low<high){
+                high--;
+            }
+            nums[low] = nums[high];
+            while(nums[low]<=temp && low<high){
+                low++;
+            }
+            nums[high] = nums[low];
+        }
+        nums[low] = temp;
+        return low;
+    }
