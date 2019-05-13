@@ -1,0 +1,22 @@
+class Solution {
+    public int longestPalindrome(String s) {
+        int len = s.length();
+        int sum = 0;
+        boolean flag = false;
+        int[] array = new int[58];
+        for(int i = 0;i<len;i++){
+            array[s.charAt(i)-'A']++;
+        }
+        System.out.println(Arrays.toString(array));
+        for(int i = 0;i<58;i++){
+            if(array[i]>1){
+                sum+=(array[i]/2)*2;
+            }
+            if(array[i]%2!=0){
+                flag =true;
+            }
+        }
+        sum = sum +(flag?1:0);
+        return sum;
+    }
+}
