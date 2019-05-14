@@ -1,0 +1,36 @@
+class Solution
+{
+  private List<List<Integer>> result = new ArrayList<List<Integer>>();
+
+  public List<List<Integer>> permute(int[] nums)
+  {
+    permutaion(nums, 0, nums.length);
+    return result;
+  }
+
+  void permutaion(int array[], int k, int length)
+  {
+    int i;
+    if(length == k)
+    {
+      List<Integer> list = new ArrayList<Integer>();
+      for(Integer a:array) {
+        list.add(a);
+      }
+      result.add(list);
+}
+    for(i = k; i < length; i++)
+    {
+      swap(array, i, k);
+      permutaion(array, k + 1, length);
+      swap(array, i, k);
+    }
+  }
+
+  public void swap(int array[], int a, int b)
+  {
+    int temp = array[a];
+    array[a] = array[b];
+    array[b] = temp;
+  }
+}
