@@ -1,0 +1,7 @@
+class Solution {
+    public int[] sortedSquares(int[] A) {
+        IntStream stream = Arrays.stream(A);
+        int[] ints = stream.map((o)->o*o).sorted().toArray();
+        return ints;
+    }
+}
