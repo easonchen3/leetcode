@@ -1,0 +1,13 @@
+class Solution {
+    public String complexNumberMultiply(String a, String b) {
+        int index1 = a.lastIndexOf('+');
+        int index2 = b.lastIndexOf('+');
+        int a1 = Integer.parseInt(a.substring(0,index1));
+        int a2 = Integer.parseInt(a.substring(index1+1,a.length()-1));
+        int b1 = Integer.parseInt(b.substring(0,index2));
+        int b2 = Integer.parseInt(b.substring(index2+1,b.length()-1));
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append((a1*b1)+(a2*b2*-1)).append('+').append((a1*b2)+(a2*b1)).append('i');
+        return stringBuilder.toString();
+    }
+}
