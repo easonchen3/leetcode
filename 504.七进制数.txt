@@ -1,0 +1,17 @@
+class Solution {
+    public String convertToBase7(int num) {
+        if(num == 0){return "0";}
+        StringBuilder stringBuilder = new StringBuilder();
+        boolean isFu = false;
+        if(num<0){
+            num*=-1;
+            isFu = true;
+        }
+        while(num!=0){
+            stringBuilder.append(num%7);
+            num /= 7;
+        }
+        String s= (isFu)?"-":"";
+        return s+stringBuilder.reverse().toString();
+    }
+}
