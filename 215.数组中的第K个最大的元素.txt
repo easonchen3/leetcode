@@ -1,7 +1,7 @@
 
 //使用快排思想
 
-public static int quickSort(int[] nums, int k,int low,int high) {
+public int quickSort(int[] nums, int k,int low,int high) {
         if(low<=high){
             int position = postion(nums,low,high);
             if(position == k-1){
@@ -17,7 +17,7 @@ public static int quickSort(int[] nums, int k,int low,int high) {
         }
     }
 
-    public static int postion(int[] nums,int left,int right){
+    public int postion(int[] nums,int left,int right){
         int low = left;
         int high = right;
         int temp = nums[low];
