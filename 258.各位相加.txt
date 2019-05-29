@@ -1,0 +1,22 @@
+1.自己写的辣鸡暴力法
+class Solution {
+    public int addDigits(int num) {
+        if(num<10){return num;}
+        while(num>=10){
+            int result = 0;
+            for(int i=num;i>0;i/=10){
+                result+=(i%10);
+            }
+            num = result;
+        }
+        return num;
+    }
+}
+2.大佬写的数学规律法。n对9取模
+class Solution{
+	public int addDigits(int num){
+		if(num==0)
+			return 0;
+		return num%9==0?9:num%9;
+	}
+}
