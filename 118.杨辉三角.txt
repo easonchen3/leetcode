@@ -1,0 +1,49 @@
+�ǵݹ飺
+class Solution {
+public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> triangle = new LinkedList<>();
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> row = new LinkedList<>();
+            for (int j = 0; j < i + 1; j++) {
+                if(j == 0 || j == i){
+                    row.add(1);
+                }else{
+                    List<Integer> lastRow = triangle.get(i-1);
+                    row.add(lastRow.get(j-1) + lastRow.get(j));
+                }
+            }
+            triangle.add(row);
+        }
+        return triangle;
+    }
+}
+
+�ݹ飺
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<>();
+        for(int i = 0;i<numRows;i++){
+            List<Integer> list =new ArrayList<>();
+            for(int j = 0;j<=i;j++){
+                list.add(helper(i,j));
+            }
+            result.add(list);
+        }
+        return result;
+    }
+    public int helper(int m,int n){
+        if(n==0){
+            return 1;
+        }
+        if(n==1){
+            return m;
+        }
+        if(n>m/2){
+            return helper(m,m-n);
+        }
+        if(n>1){
+            return helper(m-1,n-1)+helper(m-1,n);
+        }
+        return 0;
+    }
+}
