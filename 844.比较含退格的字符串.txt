@@ -1,0 +1,47 @@
+使用正则表达式，执行效率较差。 42ms
+class Solution {
+    public boolean backspaceCompare(String S, String T) {
+        while(S.lastIndexOf('#')!=-1){
+            S = S.replaceAll("(?:^|[^#])#","");
+        }
+        while (T.lastIndexOf('#')!=-1){
+            T = T.replaceAll("(?:^|[^#])#","");
+        }
+        return S.equals(T);
+    }
+}
+使用两个栈来存储数据，遇到#就弹栈，否则就入栈，最后比较两个栈内数据 6ms
+class Solution {
+    public boolean backspaceCompare(String S, String T) {
+        Stack<Character> stack1 = new Stack<>();
+        Stack<Character> stack2 = new Stack<>();
+        for (char a : S.toCharArray()) {
+            while(!stack1.isEmpty() && a=='#'){
+                stack1.pop();
+                break;
+            }
+            if(a!='#'){
+                stack1.push(a);
+            }
+        }
+        for (char b : T.toCharArray()) {
+            while(!stack2.isEmpty() && b=='#'){
+                stack2.pop();
+                break;
+            }
+            if(b!='#'){
+                stack2.push(b);
+            }
+        }
+        while(!stack1.isEmpty() && !stack2.isEmpty()){
+            if(!stack1.pop().equals(stack2.pop())){
+                return false;
+            }
+        }
+        if(stack1.isEmpty() && stack2.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
