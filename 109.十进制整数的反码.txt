@@ -1,0 +1,31 @@
+自己写的，借用Java 的工具类，执行效率很低
+
+class Solution {
+    public int bitwiseComplement(int N) {
+       String result1 = Integer.toBinaryString(N);
+        char[] chars = result1.toCharArray();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < chars.length; i++) {
+            if(chars[i] == '1'){
+                stringBuilder.append('0');
+            }else if(chars[i] == '0'){
+                stringBuilder.append('1');
+            }
+        }
+        return Integer.valueOf(stringBuilder.toString(),2);
+    }
+}
+使用移位，每次将最后移位取反并乘2 的整数倍相加。速度较快
+class Solution {
+    public int bitwiseComplement(int N) {
+        if(N == 0){
+            return 1;
+        }
+        int result = 0;
+        for(int i = 1;N>0;i*=2){
+            result +=(N&1^1)*i;
+            N>>=1;
+        }
+        return result;
+    }
+}
