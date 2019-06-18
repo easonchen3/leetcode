@@ -1,0 +1,23 @@
+class Solution {
+    public String addStrings(String num1, String num2) {
+        if(num1 == null || num2 == null){
+            return null;
+        }
+        char[] first = new StringBuilder(num1).reverse().toString().toCharArray();
+        char[] seconde = new StringBuilder(num2).reverse().toString().toCharArray();
+        int i = 0,j=0,cnt = 0;
+        StringBuilder result = new StringBuilder();
+        while(i<first.length || j<seconde.length){
+            int a1 = (i>=first.length)?0:first[i]-'0';
+            int a2 = (j>=seconde.length)?0:seconde[j]-'0';
+            int temp = (a1+a2+cnt);
+            result.append(temp%10);
+            cnt = temp/10;
+            i++;j++;
+        }
+        if(cnt != 0){
+            result.append(cnt);
+        }
+        return result.reverse().toString();
+    }
+}
