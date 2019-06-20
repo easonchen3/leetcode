@@ -1,0 +1,22 @@
+因为存在整数加法溢出情况，所以要使用逐位相加的方法，也可以把两个数转为字符串，用字符串加法。
+
+class Solution {
+    public List<Integer> addToArrayForm(int[] A, int K) {
+        int flag = 0,num1,num2,curr;
+        int i = A.length-1;
+        List<Integer> list = new ArrayList<>();
+        while(i>=0 || K>0){
+            num1 = (i>=0)?A[i]:0;
+            num2 = (K>0)?K%10:0;
+            curr = num1+num2+flag;
+            list.add(curr%10);
+            flag = curr/10;
+            i--;K/=10;
+        }
+        if(flag!=0){
+            list.add(flag);
+        }
+        Collections.reverse(list);
+        return list;
+    }
+}
