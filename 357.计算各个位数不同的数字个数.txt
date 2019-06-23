@@ -1,0 +1,13 @@
+class Solution {
+    public int countNumbersWithUniqueDigits(int n) {
+        if(n==0){
+            return 1;
+        }
+        int x = 9,sum=0,result = 9;
+        for(int i = 1;i<n;i++){
+            result = result*(x--);
+            sum += result;
+        }
+        return sum+10;
+    }
+}
