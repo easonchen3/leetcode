@@ -1,0 +1,15 @@
+对原数组进行排序，进行比较哪些位置发生了改变并记录下来。
+
+class Solution {
+    public int heightChecker(int[] heights) {
+        int[] result = Arrays.copyOf(heights,heights.length);
+        Arrays.sort(result);
+        int sum = 0;
+        for (int i = 0; i < heights.length; i++) {
+            if(heights[i]!=result[i]){
+               sum++;
+            }
+        }
+        return sum;
+    }
+}
