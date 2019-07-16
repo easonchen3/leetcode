@@ -1,0 +1,51 @@
+public class Test {
+    public static int[] sortQuick(int[] in, int left, int right){
+        int key = in[left]; //选定数组第一个数字作为key
+        int start = left;
+        int end = right;
+        while(start<end){
+            //从右向左遍历,找到小于key的,放入下标strat中。
+            while(start < end && key<=in[end]){
+                end--;
+            }
+            in[start] = in[end];
+            //从左向右遍历,找到大于key的,放入下标end中。
+            while(start < end && key > in[start]){
+                start++;
+            }
+            in[end] = in[start];
+        }
+        //此时start==end,这就是所谓的轴，把key放入轴中，轴左边的都<key,轴右边的都>key
+        in[start] = key;
+        //此时大家想象一下，轴在数组中间，说明把数组分成两部分，此时要对这两部分分别进行快排。
+        if(start>left)sortQuick(in,left,start-1);
+        if(start<right)sortQuick(in, start+1, right);
+        return in;
+    }
+
+    public static void sort(int array[],int start,int end){
+        if(start>=end) return;
+        int i = start,j = end;
+        int key = array[start];
+        while(i<j){
+            while(array[j]>=key && i<j) j--;
+            while(array[i]<=key && i<j) i++;
+            if(i<j){
+                int temp = array[j];
+                array[j] = array[i];
+                array[i] = temp;
+            }
+        }
+        array[start] = array[i];
+        array[i] = key;
+        sort(array,start,i-1);
+        sort(array,i+1,end);
+    }
+    public static void main(String[] args){
+        int[] arr = {10,7,2,4,7,62,3,4,2,1,8,9,19};
+        sortQuick(arr, 0, arr.length-1);
+        for (int i : arr) {
+            System.out.print(i+" ");
+        }
+    }
+}
