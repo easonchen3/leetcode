@@ -1,4 +1,55 @@
 public class Test {
+   public static int partition(int arr[],int low,int high){
+        int temp = arr[low];
+        while(low<high){
+            while(arr[high] >= temp && low<high) high--;
+            arr[low] = arr[high];
+            while(arr[low] <= temp && low<high) low++;
+            arr[high] = arr[low];
+        }
+        arr[low] = temp;
+        return low;
+    }
+
+    public static int findK(int k,int[] arr,int low,int high){
+        int mid = partition(arr,low,high);
+        if(mid == k-1){
+            return arr[mid];
+        }else{
+            if(mid > k-1){
+                return findK(k,arr,low,mid-1);
+            }else{
+                return findK(k,arr,mid+1,high);
+            }
+        }
+    }
+
+    public static int quickSortOneTime(int[] array, int low, int high){ //一趟快速排序
+        int  key = array[low];
+        while(low < high){
+            while(key < array[high] && low < high)  high--;
+            array[low] = array[high];
+            while(key > array[low] && low < high)   low++;
+            array[high] = array[low];
+        }
+        array[high] = key;
+        return high;
+    }
+
+    public static int Select_k(int[] array, int low, int high, int k) {
+        int index;
+        if(low == high) return array[low];
+        int partition = quickSortOneTime(array, low, high);
+        index = high - partition + 1;  //找到的是第几个大值
+        if(index == k) {
+            return array[partition];
+        }else if(index < k) {//此时向左查找
+            return Select_k(array, low, partition-1, k-index);  //查找的是相对位置的值，k在左段中的下标为k-index
+        }else {
+            return Select_k(array, partition+1, high, k);
+        }
+    }
+
     public static int[] sortQuick(int[] in, int left, int right){
         int key = in[left]; //选定数组第一个数字作为key
         int start = left;
@@ -9,6 +60,7 @@ public class Test {
                 end--;
             }
             in[start] = in[end];
+
             //从左向右遍历,找到大于key的,放入下标end中。
             while(start < end && key > in[start]){
                 start++;
