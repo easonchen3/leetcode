@@ -1,103 +1,36 @@
-public class Test {
-   public static int partition(int arr[],int low,int high){
-        int temp = arr[low];
-        while(low<high){
-            while(arr[high] >= temp && low<high) high--;
-            arr[low] = arr[high];
-            while(arr[low] <= temp && low<high) low++;
-            arr[high] = arr[low];
-        }
-        arr[low] = temp;
-        return low;
-    }
+package com.baiguo.other.leetcode.常用算法;
 
-    public static int findK(int k,int[] arr,int low,int high){
-        int mid = partition(arr,low,high);
-        if(mid == k-1){
-            return arr[mid];
-        }else{
-            if(mid > k-1){
-                return findK(k,arr,low,mid-1);
-            }else{
-                return findK(k,arr,mid+1,high);
-            }
-        }
-    }
+import java.util.Arrays;
 
-    public static int quickSortOneTime(int[] array, int low, int high){ //一趟快速排序
-        int  key = array[low];
-        while(low < high){
-            while(key < array[high] && low < high)  high--;
-            array[low] = array[high];
-            while(key > array[low] && low < high)   low++;
-            array[high] = array[low];
-        }
-        array[high] = key;
-        return high;
-    }
+/**
+ * @Author: BaoJian.Xu
+ * @Date: 2019-08-07 18:09
+ * @Version 1.0
+ */
+public class 快速排序 {
 
-    public static int Select_k(int[] array, int low, int high, int k) {
-        int index;
-        if(low == high) return array[low];
-        int partition = quickSortOneTime(array, low, high);
-        index = high - partition + 1;  //找到的是第几个大值
-        if(index == k) {
-            return array[partition];
-        }else if(index < k) {//此时向左查找
-            return Select_k(array, low, partition-1, k-index);  //查找的是相对位置的值，k在左段中的下标为k-index
-        }else {
-            return Select_k(array, partition+1, high, k);
-        }
-    }
-
-    public static int[] sortQuick(int[] in, int left, int right){
-        int key = in[left]; //选定数组第一个数字作为key
-        int start = left;
-        int end = right;
-        while(start<end){
-            //从右向左遍历,找到小于key的,放入下标strat中。
-            while(start < end && key<=in[end]){
-                end--;
-            }
-            in[start] = in[end];
-
-            //从左向右遍历,找到大于key的,放入下标end中。
-            while(start < end && key > in[start]){
-                start++;
-            }
-            in[end] = in[start];
-        }
-        //此时start==end,这就是所谓的轴，把key放入轴中，轴左边的都<key,轴右边的都>key
-        in[start] = key;
-        //此时大家想象一下，轴在数组中间，说明把数组分成两部分，此时要对这两部分分别进行快排。
-        if(start>left)sortQuick(in,left,start-1);
-        if(start<right)sortQuick(in, start+1, right);
-        return in;
-    }
-
-    public static void sort(int array[],int start,int end){
-        if(start>=end) return;
-        int i = start,j = end;
-        int key = array[start];
-        while(i<j){
-            while(array[j]>=key && i<j) j--;
-            while(array[i]<=key && i<j) i++;
-            if(i<j){
-                int temp = array[j];
-                array[j] = array[i];
-                array[i] = temp;
-            }
-        }
-        array[start] = array[i];
-        array[i] = key;
-        sort(array,start,i-1);
-        sort(array,i+1,end);
-    }
     public static void main(String[] args){
-        int[] arr = {10,7,2,4,7,62,3,4,2,1,8,9,19};
-        sortQuick(arr, 0, arr.length-1);
-        for (int i : arr) {
-            System.out.print(i+" ");
+       int[] arr = new int[]{2,3,1,5,3,1,2};
+        sortQuick(arr,0,arr.length-1);
+        System.out.println(Arrays.toString(arr));
+    }
+    public static void sortQuick(int[] arr,int i,int j){
+        if(i<j){
+            int potion = pation(arr,i,j);
+            sortQuick(arr,i,potion-1);
+            sortQuick(arr,potion+1,j);
         }
+    }
+
+    public static int pation(int[] arr,int i,int j){
+        int temp = arr[i];
+        while(i<j){
+            while(i<j && arr[j]>=temp) j--;
+            arr[i] = arr[j];
+            while(i<j && arr[i]<=temp) i++;
+            arr[j] = arr[i];
+        }
+        arr[i] = temp;
+        return i;
     }
 }
