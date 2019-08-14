@@ -1,0 +1,17 @@
+class Solution {
+   public int dayOfYear(String date) {
+        String[] dates = date.split("-");
+        int result = 0;
+        Integer day = new Integer(dates[2]);
+        Integer month = new Integer(dates[1]);
+        Integer year = new Integer(dates[0]);
+        int[] days = new int[]{0,31,28,31,30,31,30,31,31,30,31,30,31};
+        for (int i = 1 ; i < month; i++) {
+            result += days[i];
+        }
+        if(month>2 && ((year%100!=0 && year%4==0) || year%400==0)){
+            result++;
+        }
+        return  result+day;
+    }
+}
