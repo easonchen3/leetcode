@@ -1,0 +1,16 @@
+使用双指针，其中i是插入位置，j是查找位置
+找到一个非零元素就和数组最前面交换位置，最后在数组的末尾补0就可以了
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int i = 0,j=0;
+        for(;j<nums.length;j++){
+            if(nums[j]!=0){
+                nums[i++] = nums[j];
+            }
+        }
+        for(j=i;j<nums.length;j++){
+            nums[j] = 0;
+        }
+    }
+}
